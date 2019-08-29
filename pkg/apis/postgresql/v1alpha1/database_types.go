@@ -16,8 +16,9 @@ type DatabaseSpec struct {
 	Image string `json:"image"`
 
 	// Name of the PostgreSQL container image. e.g., postgres
-	ImageName string `json:"imageName"`
-	DBName    string `json:"dbName"`
+	ImageName   string              `json:"imageName"`
+	DBName      string              `json:"dbName"`
+	bindingData []bindingDescriptor `json:"bindingData"`
 }
 
 // DatabaseStatus defines the observed state of Database
@@ -54,6 +55,17 @@ type DatabaseList struct {
 	metav1.ListMeta `json:"metadata,omitempty"`
 	Items           []Database `json:"items"`
 }
+
+// DatabaseList contains desriptor
+type bindingDescriptor map[bindingSource]string
+
+type bindingSource string
+
+const (
+	secretSource    bindingSource = "secret"
+	configMapSource bindingSource = "configMap"
+	attributeSource bindingSource = "attribute"
+)
 
 func init() {
 	SchemeBuilder.Register(&Database{}, &DatabaseList{})

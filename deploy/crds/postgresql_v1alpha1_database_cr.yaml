@@ -7,3 +7,4 @@ spec:
   image: docker.io/postgres
   imageName: postgres
   dbName: postgres
+  bindingData: ['secret': 'something1', 'secret': 'something2', 'secret': 'something3']
